@@ -81,13 +81,13 @@ class App extends Component {
           <input
             type="text"
             ref="name"
-            placeholder="your name"
+            placeholder="Your Name"
             className="formField"
           />
           <input
             type="text"
             ref="number"
-            placeholder="your number"
+            placeholder="Your Phone Number"
             className="formField"
           />
           <button onClick={e => this.fSubmit(e)} className="myButton">
