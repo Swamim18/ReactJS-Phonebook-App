@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import Navbar from "./components/navbar";
 
 class App extends Component {
   constructor(props) {
@@ -75,39 +75,86 @@ class App extends Component {
   render() {
     let datas = this.state.datas;
     return (
-      <div className="App">
-        <h2>{this.state.title}</h2>
-        <form ref="myForm" className="myForm">
-          <input
-            type="text"
-            ref="name"
-            placeholder="Your Name"
-            className="formField"
-          />
-          <input
-            type="text"
-            ref="number"
-            placeholder="Your Phone Number"
-            className="formField"
-          />
-          <button onClick={e => this.fSubmit(e)} className="myButton">
-            submit{" "}
-          </button>
-        </form>
-        <pre>
-          {datas.map((data, i) => (
-            <li key={i} className="myList">
-              {i + 1}. {data.name}, {data.number}
-              <button onClick={() => this.fRemove(i)} className="myListButton">
-                remove{" "}
-              </button>
-              <button onClick={() => this.fEdit(i)} className="myListButton">
-                edit{" "}
-              </button>
-            </li>
-          ))}
-        </pre>
-      </div>
+      <React.Fragment>
+        <Navbar />
+        <hr />
+        <main className="container">
+          <div className="App">
+            <div className="jumbotron p-4">
+              <form ref="myForm">
+                <div className="form-group">
+                  <label for="InputName">Name</label>
+                  <input
+                    type="text"
+                    ref="name"
+                    className="form-control"
+                    id="InputName"
+                    placeholder="Your name"
+                  />
+                </div>
+                <div className="form-group">
+                  <label for="InputNumber">Phone Number</label>
+                  <input
+                    type="text"
+                    ref="number"
+                    className="form-control"
+                    id="InputNumber"
+                    placeholder="Your Phone Number"
+                  />
+                </div>
+                <div className="form-group">
+                  <button
+                    type="submit"
+                    className="btn btn-success btn-block"
+                    onClick={e => this.fSubmit(e)}
+                  >
+                    submit{" "}
+                  </button>
+                </div>
+              </form>
+            </div>
+            {this.state.datas.length > 0 && (
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Number</th>
+                    <th scope="col">Options</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {datas.map((data, i) => (
+                    <tr key={i}>
+                      <th scope="row">{i + 1}</th>
+                      <td>{data.name}</td>
+                      <td>{data.number}</td>
+
+                      <td>
+                        <div className="btn-group">
+                          <button
+                            onClick={() => this.fEdit(i)}
+                            className="btn btn-info"
+                          >
+                            edit{" "}
+                          </button>
+
+                          <button
+                            onClick={() => this.fRemove(i)}
+                            className="btn btn-danger"
+                          >
+                            remove{" "}
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </main>
+      </React.Fragment>
     );
   }
 }
